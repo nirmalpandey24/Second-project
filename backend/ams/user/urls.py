@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CreateArtist, ListUsers,ListArtists,Login
+from .views import CreateArtist, ListUsers,ListArtists,Login,ManageArtists,ListAdmin,CurrentArtist
 from rest_framework_simplejwt.views import TokenBlacklistView
 
 urlpatterns = [
@@ -9,6 +9,9 @@ urlpatterns = [
     path('users/', ListUsers.as_view(), name='list-users'),
     path('login/',Login.as_view(),name='login'),
     path('logout/', TokenBlacklistView.as_view(), name='token_blacklist'),
+    path('manageartist/', ManageArtists.as_view(), name='Manage_artist'),
+    path('only/admin/',ListAdmin.as_view(),name='only_admin'),
+    path('artists/me/', CurrentArtist.as_view(), name='current-artist'),
 
 ]
 

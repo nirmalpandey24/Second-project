@@ -8,7 +8,7 @@ from .models import CustomUser
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from user.permission import IsAdmin, IsArtist, IsAdminOrArtist
-
+from music.serializer import SongSerializer
 class CreateArtist(APIView):
     permission_classes = [AllowAny]  
 
@@ -120,3 +120,76 @@ class Login(APIView):
             'access': str(refresh.access_token),
             'user': serializer.data
         }, status=status.HTTP_200_OK)
+    
+
+class ManageArtists(APIView):
+    permission_classes = [IsAdminOrArtist]
+
+    def get(self, request, format=None):
+        artists = CustomUser.objects.filter(is_artist=True)
+        data = []
+        for artist in artists:
+            artist_data = CustomUserSerializer(artist).data
+            artist_data['songs'] = SongSerializer(artist.song_set.all(), many=True).data
+            data.append(artist_data)
+        return Response(data)
+
+    def put(self, request, pk, format=None):
+        try:
+            artist = CustomUser.objects.get(pk=pk, is_artist=True)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'Artist not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = CustomUserSerializer(artist, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        try:
+            artist = CustomUser.objects.get(pk=pk, is_artist=True)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'Artist not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        artist.soft_delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+        
+class ListAdmin(APIView):
+    permission_classes = [IsAuthenticated,IsAdmin]
+
+    def get(self, request, format=None):
+        admins = request.user
+        serializer = CustomUserSerializer(admins)
+        return Response(serializer.data)
+
+    def put(self, request):
+        try:
+            admin = request.user
+            serializer = CustomUserSerializer(admin, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def patch(self, request):
+        try:
+            admin = request.user
+            serializer = CustomUserSerializer(admin, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class CurrentArtist(APIView):
+    permission_classes = [IsAuthenticated, IsArtist]  
+
+    def get(self, request, format=None):
+        artist = request.user
+        serializer = CustomUserSerializer(artist)
+        return Response(serializer.data)

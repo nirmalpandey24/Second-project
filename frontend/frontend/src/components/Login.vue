@@ -1,16 +1,11 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-teal-50 to-gray-100">
-    <div class="p-10 bg-white rounded-lg shadow-lg">
-      <div class="bg-gray-100 -z-10 rounded-lg absolute inset-0"></div>
-
-      <div>
-        <h2 class="mt-6 text-center text-4xl font-extrabold text-gray-900">Login</h2>
-      </div>
-
-      <form @submit.prevent="login" class="mt-8 space-y-6">
+  <div class="min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('src/assets/image.avif')">
+    <div class="bg-gray-500 opacity-70 p-10 rounded-lg shadow-lg max-w-md w-full">
+      <h2 class="text-center text-4xl font-extrabold text-gray-900 mb-6">Login</h2>
+      <form @submit.prevent="login" class="space-y-6">
         <div>
-          <label for="email-address" class="sr-only">Email address</label>
-          <div class="mt-1 rounded-md shadow-sm">
+          <label for="email-address" class="block text-sm font-medium text-white text-bold">Email address</label>
+          <div class="mt-1">
             <input
               v-model="form.email"
               id="email-address"
@@ -18,24 +13,44 @@
               type="email"
               autocomplete="email"
               required
-              class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md placeholder-gray-500 text-lg focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg"
+              class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-white   text-lg focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg"
               placeholder="Email address"
             />
           </div>
         </div>
 
         <div>
-          <label for="password" class="sr-only">Password</label>
-          <div class="mt-1 rounded-md shadow-sm">
+          <label for="password" class="block text-sm  text-white font-bold">Password</label>
+          <div class="mt-1">
             <input
               v-model="form.password"
               id="password"
               name="password"
               type="password"
               required
-              class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md placeholder-gray-500 text-lg focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg"
+              class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-500 text-lg focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg"
               placeholder="Password"
             />
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input
+              id="remember_me"
+              name="remember_me"
+              type="checkbox"
+              class="h-4 w-4 text-white focus:ring-black border-gray-300 rounded font-bold"
+            />
+            <label for="remember_me" class="ml-2 block text-sm text-gray-900">
+              Remember me
+            </label>
+          </div>
+
+          <div class="text-sm">
+            <router-link to="/forgot-password" class="font-medium text-indigo-600 hover:text-indigo-500">
+              Forgot your password?
+            </router-link>
           </div>
         </div>
 
@@ -48,8 +63,8 @@
           </button>
         </div>
 
-        <div class="text-center">
-          <router-link to="/signup" class="text-indigo-600 hover:text-indigo-700 text-lg">
+        <div class="text-center mt-4">
+          <router-link to="/signup" class="text-white font-bold hover:text-indigo-700 text-lg">
             Don't have an account? Sign up here.
           </router-link>
         </div>
@@ -100,5 +115,8 @@ export default {
 </script>
 
 <style scoped>
-/* You can add custom styles here */
+.bg-cover {
+  background-size: cover;
+  background-position: center;
+}
 </style>
