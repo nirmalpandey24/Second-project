@@ -87,8 +87,8 @@
         this.loading = true;
         this.error = null;
         try {
-          const token = localStorage.getItem('access_token'); // Adjust based on how you store tokens
-          const artistsResponse = await axios.get('http://127.0.0.1:8000/api/only/artists/', {
+          const token = localStorage.getItem('access_token');
+          const artistsResponse = await axios.get('http://127.0.0.1:8000/api/only/admin/', {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -145,7 +145,7 @@
       async updateArtist() {
         const token = localStorage.getItem('access_token');
         try {
-          const response = await axios.put(`http://127.0.0.1:8000/api/only/artists/${this.editArtistId}/`, {
+          const response = await axios.put(`http://127.0.0.1:8000/api/individual/${this.editArtistId}/`, {
             first_name: this.editArtistFirstName,
             last_name: this.editArtistLastName,
           }, {
@@ -166,7 +166,7 @@
       async deleteArtist(artistId) {
         const token = localStorage.getItem('access_token');
         try {
-          await axios.delete(`http://127.0.0.1:8000/api/only/artists/${artistId}/`, {
+          await axios.delete(`http://127.0.0.1:8000/api/individual/${artistId}/`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -204,7 +204,7 @@
       async updateSong() {
         const token = localStorage.getItem('access_token');
         try {
-          const response = await axios.put(`http://127.0.0.1:8000/api/song/${this.editSongId}/`, {
+          const response = await axios.patch(`http://127.0.0.1:8000/api/song/${this.editSongId}/`, {
             title: this.editSongTitle,
           }, {
             headers: {

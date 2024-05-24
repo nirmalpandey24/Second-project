@@ -24,7 +24,7 @@
       </ul>
       <p v-else class="text-center">No songs found.</p>
   
-      <!-- Edit Song Modal -->
+      
       <div v-if="editingSong" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
         <div class="bg-white p-4 rounded-md w-96">
           <span @click="cancelEdit" class="absolute top-0 right-0 cursor-pointer p-2">&times;</span>

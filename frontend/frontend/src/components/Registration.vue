@@ -78,14 +78,14 @@ export default {
         country: '',
         password: '',
       },
-      csrfToken: null, // Add a variable to store the CSRF token
+      csrfToken: null, 
     };
   },
   methods: {
     submitForm() {
       axios.post('http://127.0.0.1:8000/api/create-artists/', this.form, {
         headers: {
-          'X-CSRFToken': this.csrfToken // Use the stored CSRF token
+          'X-CSRFToken': this.csrfToken 
         }
       })
       .then(response => {
@@ -111,7 +111,7 @@ export default {
       axios.get('http://127.0.0.1:8000/api/get-csrf-token')
         .then(response => {
           this.csrfToken = response.data.csrftoken;
-          console.log(this.csrfToken) // Save the CSRF token
+          console.log(this.csrfToken) 
         })
         .catch(error => {
           console.error('Error getting CSRF token:', error);

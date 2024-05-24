@@ -1,5 +1,6 @@
 <template>
-  <div class="bg-gray-100 min-h-screen">
+<div class="min-h-screen bg-gray-100 bg-opacity-20" style="background-image: url('src/assets/background.jpg')">
+
     <!-- Navbar -->
     <nav class="bg-black  text-white p-4">
       <div class="max-w-7xl mx-auto flex justify-between items-center">
@@ -11,37 +12,36 @@
       </div>
     </nav>
     
-    <!-- Main Content -->
-    <div class="max-w-4xl mx-auto p-6 mt-8 bg-white rounded-lg shadow-md">
-      <h1 class="text-3xl font-bold text-center mb-8">Add New Song</h1>
+    <div class="max-w-4xl mx-auto p-6 mt-8 bg-gray-800  rounded-lg shadow-md marker:">
+      <h1 class=" font-bold text-center mb-8 text-white text-4xl">Add New Song</h1>
       
-      <!-- Form to create a new song -->
-      <form @submit.prevent="createSong" class="space-y-4">
+      
+      <form @submit.prevent="createSong" class="space-y-4 ">
         <div>
-          <label for="title" class="block font-bold">Title</label>
+          <label for="title" class="block font-bold text-white text-2xl">Title</label>
           <input type="text" v-model="newSong.title" required
                  class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                  placeholder="Enter title">
         </div>
         <div>
-          <label for="release_date" class="block font-bold">Release Date</label>
+          <label for="release_date" class="block font-bold  text-white text-2xl">Release Date</label>
           <input type="date" v-model="newSong.release_date" required
                  class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
         </div>
         <div>
-          <label for="duration" class="block font-bold">Duration</label>
+          <label for="duration" class="block font-bold  text-white text-2xl">Duration</label>
           <input type="number" v-model="newSong.duration" required
                  class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                  placeholder="Enter duration">
         </div>
         <div>
-          <label for="lyrics" class="block font-bold">Lyrics</label>
+          <label for="lyrics" class="block font-bold  text-white text-2xl">Lyrics</label>
           <textarea v-model="newSong.lyrics"
                     class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="Enter lyrics"></textarea>
         </div>
         <div>
-          <label for="language" class="block font-bold">Language</label>
+          <label for="language" class="block font-bold  text-white text-2xl">Language</label>
           <input type="text" v-model="newSong.language" required
                  class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                  placeholder="Enter language">
@@ -73,7 +73,7 @@ export default {
     createSong() {
       const user = JSON.parse(localStorage.getItem('user'));
       const token = localStorage.getItem('access_token');
-      this.newSong.artist = user.id; // Ensure the artist ID is set
+      this.newSong.artist = user.id; 
 
       axios
         .post('http://127.0.0.1:8000/api/song/create/', this.newSong, {
@@ -100,12 +100,12 @@ export default {
       this.$router.push({ name: 'ArtistSongs' });
     },
     showAddNewSong() {
-      // You can implement navigation to another route for adding new song
+      
     }
   }
 };
 </script>
 
 <style scoped>
-/* Custom styles removed */
+
 </style>

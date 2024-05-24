@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from user.permission import IsAdmin, IsArtist, IsAdminOrArtist
 from music.serializer import SongSerializer
+from django.shortcuts import get_object_or_404
 class CreateArtist(APIView):
     permission_classes = [AllowAny]  
 
@@ -159,10 +160,12 @@ class ManageArtists(APIView):
 class ListAdmin(APIView):
     permission_classes = [IsAuthenticated,IsAdmin]
 
+
     def get(self, request, format=None):
-        admins = request.user
-        serializer = CustomUserSerializer(admins)
+        artists = CustomUser.objects.filter(is_artist=True)
+        serializer = CustomUserSerializer(artists, many=True)
         return Response(serializer.data)
+
 
     def put(self, request):
         try:
@@ -193,3 +196,29 @@ class CurrentArtist(APIView):
         artist = request.user
         serializer = CustomUserSerializer(artist)
         return Response(serializer.data)
+    
+class AdminArtistDetail(APIView):
+    permission_classes = [IsAuthenticated, IsAdmin]
+
+    def get(self, request, pk, format=None):
+        
+        artist = get_object_or_404(CustomUser, pk=pk, is_artist=True)
+        serializer = CustomUserSerializer(artist)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        
+        artist = get_object_or_404(CustomUser, pk=pk, is_artist=True)
+        serializer = CustomUserSerializer(artist, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+    
+        artist = get_object_or_404(CustomUser, pk=pk, is_artist=True)
+        artist.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+   

@@ -6,6 +6,7 @@ import ArtistDash from '../components/Artist_Dash.vue';
 import ArtistSongs from '../components/ArtistSongs.vue';
 import DisplayArtist from '../components/Display_artist.vue';
 import AdminAccount from '@/components/Admin_Account.vue';
+import Registration from '../components/Registration.vue';
 const routes= [
     {
       path:'/signup',
@@ -42,6 +43,11 @@ const routes= [
       path:'/admin_account',
       name:'AdminAccount',
       component:AdminAccount
+    },
+    {
+      path:'/Registration ',
+      name:'Registration',
+      component:'Registration '
     }
 ]
 const router = createRouter({

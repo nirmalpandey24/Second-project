@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('src/assets/image.avif')">
-    <div class="bg-gray-500 opacity-70 p-10 rounded-lg shadow-lg max-w-md w-full">
-      <h2 class="text-center text-4xl font-extrabold text-gray-900 mb-6">Login</h2>
+  <div class="min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('src/assets/background4.jpg')">
+    <div class="bg-gray-800  p-10 rounded-lg shadow-lg max-w-md w-full">
+      <h2 class="text-center text-4xl font-extrabold text-white mb-6">Login</h2>
       <form @submit.prevent="login" class="space-y-6">
         <div>
           <label for="email-address" class="block text-sm font-medium text-white text-bold">Email address</label>
