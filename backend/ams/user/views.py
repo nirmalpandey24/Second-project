@@ -10,6 +10,7 @@ from django.contrib.auth.hashers import make_password
 from user.permission import IsAdmin, IsArtist, IsAdminOrArtist
 from music.serializer import SongSerializer
 from django.shortcuts import get_object_or_404
+
 class CreateArtist(APIView):
     permission_classes = [AllowAny]  
 

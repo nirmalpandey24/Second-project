@@ -7,6 +7,7 @@ import ArtistSongs from '../components/ArtistSongs.vue';
 import DisplayArtist from '../components/Display_artist.vue';
 import AdminAccount from '@/components/Admin_Account.vue';
 import Registration from '../components/Registration.vue';
+import Dashboard from '../components/Dashboard.vue';
 const routes= [
     {
       path:'/signup',
@@ -48,6 +49,11 @@ const routes= [
       path:'/Registration ',
       name:'Registration',
       component:'Registration '
+    },
+    {
+      path:'/Dashboard',
+      name:'Dashboard',
+      component:Dashboard
     }
 ]
 const router = createRouter({
